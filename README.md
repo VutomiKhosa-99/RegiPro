@@ -1,242 +1,144 @@
-# RegiPro Web Application Documentation
+# RegiPro Mobile App
 
-RegiPro is a comprehensive web application that aims to support small businesses throughout their journey, providing assistance with business registration through CIPC (Companies Intellectual Property Commission), generating business plans using OpenAI, and recommending ABSA business products for funding. The application is divided into two main components: the frontend, built with Angular, and the backend, developed using Node.js, Express, and PostgreSQL. This documentation provides an overview of both the frontend and backend, along with installation instructions and usage details.
+RegiPro is a comprehensive mobile application built with Expo and React Native that helps small businesses with registration, business plan generation, and funding opportunities.
 
-## Table of Contents
+## Features
 
-- [Frontend](#frontend)
-  - [Introduction](#introduction)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-  - [Screenshots](#screenshots)
-- [Backend](#backend)
-  - [Architecture](#architecture)
-  - [API Endpoints](#api-endpoints)
-  - [Database Schema](#database-schema)
-  - [Installation and Setup](#installation-and-setup)
-- [Support](#support)
-- [Contributing](#contributing)
-- [License](#license)
+- **User Authentication**: Secure login and registration
+- **Business Plan Generation**: AI-powered business plan creation using OpenAI
+- **CIPC Registration**: Step-by-step guidance for business registration
+- **ABSA Funding**: Discover funding opportunities and business products
+- **Multi-Business Management**: Manage multiple business ventures
+- **Responsive Design**: Optimized for both iOS and Android
 
-## Frontend
+## Tech Stack
 
-### Introduction
+- **Frontend**: React Native with Expo
+- **Navigation**: Expo Router
+- **UI Components**: React Native Paper
+- **State Management**: React Context API
+- **Forms**: React Hook Form
+- **Storage**: AsyncStorage
+- **Backend**: Node.js/Express (existing backend)
 
-RegiPro's frontend is developed using the Angular framework, providing an intuitive and user-friendly interface for small businesses to manage their registration, business planning, and funding needs seamlessly.
+## Getting Started
 
-### Features
+### Prerequisites
 
-1. **CIPC Registration Assistance:**
-
-   - Step-by-step guidance for registering a business or idea with CIPC.
-   - Input validation to ensure accurate and complete information submission.
-
-2. **Business Plan Generation using OpenAI:**
-
-   - Utilizes OpenAI's advanced natural language processing to automatically generate comprehensive business plans.
-   - Customizable templates and sections to cater to different business types.
-
-3. **ABSA Business Product Recommendations:**
-
-   - Offers recommendations for ABSA business products and services suitable for funding the business.
-   - Displays key information about each recommended product.
-
-4. **User Authentication and Data Security:**
-
-   - Secure user authentication and registration process.
-   - Encrypted storage of sensitive user data.
-
-5. **Responsive Design:**
-   - Ensures a consistent and user-friendly experience across various devices and screen sizes.
+- Node.js (v16 or higher)
+- Expo CLI
+- iOS Simulator or Android Emulator (for development)
 
 ### Installation
 
-To install and run the RegiPro Angular app locally, follow these steps:
-
 1. Clone the repository:
+```bash
+git clone <repository-url>
+cd RegiPro
+```
 
-   ```
-   git clone https://github.com/The-DigitalAcademy/RegiPro.git
-   ```
+2. Install dependencies:
+```bash
+npm install
+```
 
-2. Navigate to the project directory:
+3. Start the development server:
+```bash
+npm start
+```
 
-   ```
-   cd RegiPro
-   cd frontend
-   ```
+4. Run on your preferred platform:
+```bash
+# iOS
+npm run ios
 
-3. Install dependencies using yarn:
+# Android
+npm run android
 
-   ```
-   yarn install
-   ```
+# Web
+npm run web
+```
 
-4. Start the development server:
+## Project Structure
 
-   ```
-   ng serve
-   ```
+```
+RegiPro/
+├── app/                    # App router pages
+│   ├── (auth)/            # Authentication screens
+│   ├── (tabs)/            # Main app tabs
+│   └── _layout.tsx        # Root layout
+├── src/
+│   ├── components/        # Reusable components
+│   ├── contexts/          # React contexts
+│   ├── screens/           # Screen components
+│   ├── services/          # API services
+│   ├── theme/             # Theme configuration
+│   └── config/            # App configuration
+├── assets/                # Static assets
+└── package.json
+```
 
-5. Open your browser and visit `http://localhost:4200` to access the app.
+## Configuration
 
-### Usage
+Update the API base URL in `src/config/constants.ts` to match your backend deployment:
 
-1. **User Registration and Login:**
+```typescript
+export const API_BASE_URL = __DEV__ 
+  ? 'http://localhost:5001' 
+  : 'https://your-backend-url.com';
+```
 
-   - Create an account or log in to your existing account.
+## Key Features Implementation
 
-2. **Business Plan Generation:**
+### Authentication
+- JWT-based authentication with secure token storage
+- Form validation with React Hook Form
+- Automatic token refresh and logout handling
 
-   - Access the business plan generator.
-   - Answer a qustionnaire to give information about your business.
-   - Generate a business plan using OpenAI's capabilities by answering all the questionnaire questions.
+### Business Management
+- Create and manage multiple businesses
+- Industry-specific icons and categorization
+- Business plan generation and download
 
-3. **CIPC Registration:**
+### Navigation
+- Tab-based navigation for main features
+- Stack navigation for authentication flow
+- Deep linking support with Expo Router
 
-   - Navigate to the CIPC registration section.
-   - Follow the provided steps to submit your business or idea for registration.
+### UI/UX
+- Material Design 3 components with React Native Paper
+- Custom theme with brand colors
+- Responsive design for different screen sizes
+- Loading states and error handling
 
-4. **ABSA Business Product Recommendations:**
-   - Explore the ABSA business product recommendations section.
-   - View details about different funding options and services.
+## Backend Integration
 
-### Screenshots
+The app integrates with the existing Node.js backend:
 
-![Landing Page](./frontend/src/assets/images/Landing%20Page.png)
-_Landing Page_
+- **Authentication**: `/auth/signin`, `/auth/signup`, `/auth/signout`
+- **Business Management**: `/responses` (CRUD operations)
+- **Business Plan Generation**: `/business-plan/generate`
 
-![Sign In or Sign Up](./frontend/src/assets/images/Sign%20in%20&%20Sign%20up.png)
-_Sign In OR Sign Up_
+## Building for Production
 
-![Homepage](./frontend/src/assets/images/Home%20Page.png)
-_Homepage_
+### Android
+```bash
+expo build:android
+```
 
-![Questionnaire](./frontend/src/assets/images/Questionnaire.png)
-_Questionnaire_
-
-![Business Plan download](./frontend/src/assets/images/Business%20Plan.png)
-_Business Plan download_
-
-![CIPC Registration Steps](./frontend/src/assets/images/CIPC%20Steps.png)
-_CIPC Registration Steps_
-
-![ABSA Business Products link](./frontend/src/assets/images/ABSA%20business%20products.png)
-_ABSA Business Products link_
-
-![Regenerate Business Plan](./frontend/src/assets/images/Screenshot%202023-07-28%20at%2015.06.30.png)
-_Regenerate Business Plan_
-
-![About Us](./frontend/src/assets/images/About%20us%20.png)
-_About Us_
-
-## Backend
-
-### Architecture
-
-The backend of RegiPro follows a RESTful architecture, with Express serving as the web application framework. It handles requests from the frontend, interacts with the PostgreSQL database, and manages business logic.
-
-### API Endpoints
-
-The API provides endpoints for various functionalities:
-
-1. **User Authentication:**
-
-   - `POST /auth/register` - Register a new user.
-   - `POST /auth/login` - Authenticate user and provide access token.
-   - `POST /auth/logout` - Logout a user and clear access token.
-
-2. **Business Registration:**
-
-   - `POST /responses` - Submit business or idea for business plan generation.
-   - `GET  /responses` - Retrieve businesses or idea listed by a user including the business plan.
-   - `GET  /responses/:id` - Retrieve specific business or idea by its unique ID listed by a user.
-
-3. **Business Plan Generation:**
-
-   - `POST /business-plan/generate` - Generate a business plan using OpenAI.
-
-### Database Schema
-
-The PostgreSQL database consists of the following tables:
-
-1. `roles` - Stores user information.
-
-   - `id`
-   - `user`
-   - `moderator`
-   - `admin`
-
-2. `users` - Stores user information.
-
-   - `id`
-   - `firstname`
-   - `lastname`
-   - `email`
-   - `password` (hashed)
-
-3. `responses` - Records idea registration submissions.
-
-   - `id`
-   - `user_id` (foreign key referencing `users`)
-   - `business_name`
-   - `industry`
-   - `description`
-   - `hasBusinessPlan`
-   - `isRegistered`
-   - `businessPlanUrl` (link stored to cloudinary)
-
-4. `token` - Contains token for reset password.
-
-   - `id`
-   - `user_id`
-   - `token`
-
-### Installation and Setup
-
-To set up the backend locally, follow these steps:
-
-1. Clone the backend repository:
-
-   ```
-   git clone https://github.com/The-DigitalAcademy/RegiPro.git
-   ```
-
-2. Navigate to the project directory:
-
-   ```
-   cd RegiPro
-   cd backend
-   ```
-
-3. Install dependencies using yarn:
-
-   ```
-   yarn install
-   ```
-
-4. Create a `.env` file based on the provided `.env.example` and configure your environment variables.
-
-5. Set up your PostgreSQL database and update the database connection details in `.env`.
-
-6. Run the development server:
-   ```
-   yarn run dev
-   ```
-
-## Support
-
-For any inquiries or assistance, please contact our support team at support@regipro.co.za.
+### iOS
+```bash
+expo build:ios
+```
 
 ## Contributing
 
-We welcome contributions to enhance both the RegiPro frontend and backend. If you'd like to contribute, please fork the respective repositories, create a new branch, make your changes, and submit a pull request.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
 ## License
 
-The RegiPro app and its components are licensed under the [MIT License](LICENSE).
-
----
-
-Thank you for choosing RegiPro to simplify business registration, planning, and funding processes. Your success is our priority.
+This project is licensed under the MIT License.
