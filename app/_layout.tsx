@@ -3,9 +3,11 @@ import { PaperProvider } from 'react-native-paper';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
 import { AuthProvider } from '../src/contexts/AuthContext';
-import { theme } from '../src/theme/theme';
+import { theme } from '../src/theme/theme'
+import { useFrameworkReady } from '@/hooks/useFrameworkReady';
 
 export default function RootLayout() {
+  useFrameworkReady();
   return (
     <SafeAreaProvider>
       <PaperProvider theme={theme}>
